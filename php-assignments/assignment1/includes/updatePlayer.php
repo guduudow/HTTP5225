@@ -15,7 +15,7 @@
 
     // connection string
     include("../includes/connect.php");
-    $query = "UPDATE PlayerStars SET player_name = '$pname', position = '$position', matches_played = '$matches', goals = '$goals', assists = '$assists', yellow_cards = '$yellow', red_cards = '$red', debut = '$debut', final_match = '$final', country = '$country'";
+    $query = "UPDATE PlayerStats SET player_name = '$pname', position = '$position', matches_played = '$matches', goals = '$goals', assists = '$assists', yellow_cards = '$yellow', red_cards = '$red', debut = '$debut', final_match = '$final', country = '$country'";
 
     $player = mysqli_query($connect, $query);
 
