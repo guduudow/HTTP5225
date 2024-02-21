@@ -21,7 +21,36 @@
   </div>
   <?php 
     $connect = mysqli_connect('localhost', 'root', 'root', 'FootbalStats'); //connection string
-    $query = 'SELECT * FROM PlayerStats';
+    $query = 'SELECT 
+    PlayerStats.playerid,
+    PlayerStats.player_name,
+    PlayerStats.position,
+    PlayerStats.matches_played,
+    PlayerStats.goals,
+    PlayerStats.assists,
+    PlayerStats.debut,
+    PlayerStats.final_match,
+    PlayerStats.country,
+    PlayerStats.imageURL,
+    GROUP_CONCAT(Teams.logoURL) AS logos
+FROM 
+    PlayerStats
+JOIN 
+    Roster ON PlayerStats.playerid = Roster.playerid
+JOIN 
+    Teams ON Roster.teamid = Teams.teamid
+GROUP BY 
+    PlayerStats.playerid,
+    PlayerStats.player_name,
+    PlayerStats.position,
+    PlayerStats.matches_played,
+    PlayerStats.goals,
+    PlayerStats.assists,
+    PlayerStats.debut,
+    PlayerStats.final_match,
+    PlayerStats.country,
+    PlayerStats.imageURL;
+';
 
     $players = mysqli_query($connect, $query); //actually try to establish connection
     
@@ -31,42 +60,37 @@
   ?>
   <div class="container">
     <div class="row">
-      <?php
-        foreach($players as $player) {
+        <?php
+        foreach ($players as $row) {
+            echo '<div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="' . $row['imageURL'] . '" class="card-img-top" alt="Player Image">
+                        <div class="card-body">
+                            <h5 class="card-title">' . $row['player_name'] . '</h5>
+                            <p class="card-text">Position:' . $row['position'] . '</p>
+                            <p class="card-text">Matches Played:' . $row['matches_played'] . '</p>
+                            <p class="card-text">Goals:' . $row['goals'] . '</p>
+                            <p class="card-text">Assists:' . $row['assists'] . '</p>
+                            <p class="card-text">Debut:' . $row['debut'] . '</p>
+                            <p class="card-text">Final Match:' . $row['final_match'] . '</p>
+                            <p class="card-text">Country:' . $row['country'] . '</p>
+                            <div class="mt-3">
+                                <h6>Teams:</h6>';
 
-          if($player['final_match']!= null ){
-            $finalgame = "<br>Final: ". $player['final_match'] ."<br>";
-          } else {
-            $finalgame = "<br>";
-          }
+            // Concatenate the logo URLs
+            foreach (explode(",", $row['logos']) as $logo) {
+                echo '<img src="' . $logo . '" alt="Team Logo" class="team-logo mx-3 py-3" style="max-width: 20%; height: auto;">';
+            }
 
-
-          echo '<div class="col-md-4">
-                  <div class="card-body border">
-                    <img class="card-img-top" src="'.$player['imageURL'].'" alt=""/>
-                    <h5 class="card-title">' . $player['player_name'] .'</h5><br>
-                    Position: ' . $player['position'] . '<br>
-                    Matches: '. $player['matches_played'] .'<br>
-                    Goals: '. $player['goals'] .'<br>
-                    Assists: '. $player['assists'] .'<br>
-                    Debut: ' .$player['debut']. '
-                    '. $finalgame .'
-                    Country: '. $player['country'] .'
-                  </div>
-                <div class="card-footer">
-                    <form method="GET" action="update.php">
-                        <input type="hidden" name="playerid" value="' . $player['playerid'] .'">
-                        <button type="submit" name="edit" class="btn btn-sm btn-info">Edit</button>
-                    </form>
-                    <form method="GET" action="includes/deletePlayer.php">
-                        <input type="hidden" name="playerid" value="' . $player['playerid'] .'">
-                        <button type="submit" name="delete" class="btn btn-sm btn-danger">Delete</button>
-                    </form>
+            // Close the HTML tags
+            echo '</div>
+                    </div>
                 </div>
             </div>';
-          }
-      ?>
+        }
+        ?>
     </div>
-  </div>
+</div>
+
 </body>
 </html>
