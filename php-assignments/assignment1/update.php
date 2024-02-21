@@ -50,14 +50,6 @@
             <input type="text" class="form-control" id="assists" name="assists" aria-describedby="assistsHelp" value="<?php echo $result['assists'];?>">
           </div>
           <div class="mb-3">
-            <label for="yellow_cards" class="form-label">Yellow Cards:</label>
-            <input type="text" class="form-control" id="yellow_cards" name="yellow_cards" aria-describedby="ycHelp" value="<?php echo $result['yellow_cards'];?>">
-          </div>
-          <div class="mb-3">
-            <label for="red_cards" class="form-label">Red Cards:</label>
-            <input type="text" class="form-control" id="red_cards" name="red_cards" aria-describedby="rcHelp" value="<?php echo $result['red_cards'];?>">
-          </div>
-          <div class="mb-3">
             <label for="debut" class="form-label">Debut:</label>
             <input type="text" class="form-control" id="debut" name="debut" aria-describedby="debutHelp" value="<?php echo $result['debut'];?>">
           </div>
@@ -68,6 +60,10 @@
           <div class="mb-3">
             <label for="country" class="form-label">Country:</label>
             <input type="text" class="form-control" id="country" name="country" aria-describedby="countryHelp" value="<?php echo $result['country'];?>">
+          </div>
+          <div class="mb-3">
+            <label for="imageURL" class="form-label">ImageURL:</label>
+            <input type="text" class="form-control" id="imageURL" name="imageURL" aria-describedby="imageURLHelp" value="<?php echo $result['imageURL'];?>">
           </div>
           <button type="submit" name="updatePlayer" class="btn btn-primary">Submit</button>
       </form>

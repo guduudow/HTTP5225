@@ -43,13 +43,12 @@
 
           echo '<div class="col-md-4">
                   <div class="card-body border">
+                    <img class="card-img-top" src="'.$player['imageURL'].'" alt=""/>
                     <h5 class="card-title">' . $player['player_name'] .'</h5><br>
                     Position: ' . $player['position'] . '<br>
                     Matches: '. $player['matches_played'] .'<br>
                     Goals: '. $player['goals'] .'<br>
                     Assists: '. $player['assists'] .'<br>
-                    Yellow Cards: '. $player['yellow_cards'] .'<br>
-                    Red Cards: '. $player['red_cards'] .'<br>
                     Debut: ' .$player['debut']. '
                     '. $finalgame .'
                     Country: '. $player['country'] .'
