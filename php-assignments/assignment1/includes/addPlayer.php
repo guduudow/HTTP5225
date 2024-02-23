@@ -12,7 +12,7 @@
     $image = $_POST['imageURL'];
 
     // connection string
-    include("../includes/connect.php");
+    include("includes/connect.php");
     $query = "INSERT INTO PlayerStats(player_name, position, matches_played, goals, assists, debut, final_match, country, imageURL) VALUES ('$pname', '$position', '$matches', '$goals', '$assists', '$debut', '$final', '$country', '$image')";
 
     $player = mysqli_query($connect, $query);

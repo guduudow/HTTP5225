@@ -13,7 +13,7 @@
     $image = $_POST['imageURL'];
 
     // connection string
-    include("../includes/connect.php");
+    include("connect.php");
     $query = "UPDATE PlayerStats SET player_name = '$pname', position = '$position', matches_played = '$matches', goals = '$goals', assists = '$assists', debut = '$debut', final_match = '$final', country = '$country', imageURL = '$image' WHERE id = '$id'";
 
     $player = mysqli_query($connect, $query);

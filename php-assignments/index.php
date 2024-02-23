@@ -1,4 +1,3 @@
-<?php include('includes/connect.php')?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +20,7 @@
     </div>
   </div>
   <?php 
+    include('../includes/connect.php'); //connection string
     $query = 'SELECT 
     PlayerStats.playerid,
     PlayerStats.player_name,
@@ -53,7 +53,10 @@ GROUP BY
 ';
 
     $players = mysqli_query($connect, $query); //actually try to establish connection
-
+    
+    if(mysqli_connect_error()){
+      die("Connection error: " . mysqli_connect_error());
+    }
   ?>
   <div class="container">
     <div class="row">
@@ -68,7 +71,7 @@ GROUP BY
 
             echo '<div class="col-md-4 mb-4">
                     <div class="card h-100">
-                        <img src="images/' . $row['imageURL'] . '" class="card-img-top" alt="Player Image" style="height: auto;">
+                        <img src="' . $row['imageURL'] . '" class="card-img-top" alt="Player Image" style="height: auto;">
                         <div class="card-body">
                             <h5 class="card-title">' . $row['player_name'] . '</h5>
                             <p class="card-text">Position: ' . $row['position'] . '</p>
@@ -83,7 +86,7 @@ GROUP BY
 
             // Concatenate the logo URLs
             foreach (explode(",", $row['logos']) as $logo) {
-                echo '<img src="images/' . $logo . '" alt="Team Logo" class="team-logo mx-3 py-3" style="max-width: 20%; height: auto;">';
+                echo '<img src="' . $logo . '" alt="Team Logo" class="team-logo mx-3 py-3" style="max-width: 20%; height: auto;">';
             }
 
             // Close the HTML tags
@@ -91,11 +94,11 @@ GROUP BY
                   <div class="col-lg-2 d-flex align-items-center">
                     <form method="GET" action="update.php">
                       <input type="hidden" name="playerid" value="' . $row['playerid'] .'">
-                      <button type="submit" name="edit" class="btn btn-sm btn-info my-5 mx-1">Edit</button>
+                      <button type="submit" name="edit" class="btn btn-sm btn-info my-5 mx-5">Edit</button>
                     </form>
                     <form method="GET" action="includes/deletePlayer.php">
                         <input type="hidden" name="playerid" value="' . $row['playerid'] .'">
-                        <button type="submit" name="delete" class="btn btn-sm btn-danger my-5 mx-1">Delete</button>
+                        <button type="submit" name="delete" class="btn btn-sm btn-danger my-5 mx-5">Delete</button>
                     </form>
                   </div>
                     </div>

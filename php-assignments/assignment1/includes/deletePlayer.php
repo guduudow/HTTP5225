@@ -3,7 +3,7 @@
     $id = $_GET['playerid'];
 
     // connection string
-    include('../includes/connect.php');
+    include('connect.php');
     $query = "DELETE FROM PlayerStats WHERE `playerid` = '$id'";
 
     $student = mysqli_query($connect, $query);
